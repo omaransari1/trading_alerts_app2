@@ -9,9 +9,8 @@ class PagesController < ApplicationController
     response = conn.get '/query?function=TIME_SERIES_DAILY&symbol=AAPL&apikey=JG3NSS22E1GK9BB5'
 
     @apple = response.body
-    # @papple = JSON.parse @apple
-    # @todays_close = @apple
-    # ["Time Series (Daily)"]["2017-08-02"]["4. close"]
+    @parsed_apple = JSON.parse @apple
+     @todays_close = @parsed_apple["Time Series (Daily)"]["2017-08-02"]["4. close"]
 
     render 'home'
   end
