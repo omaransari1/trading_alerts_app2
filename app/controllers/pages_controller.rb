@@ -6,11 +6,11 @@ class PagesController < ApplicationController
       faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
     end
 
-    response = conn.get '/query?function=TIME_SERIES_DAILY&symbol=AAPL&apikey=JG3NSS22E1GK9BB5'
+    response = conn.get '/query?function=TIME_SERIES_DAILY&symbol=AAPL&outputsize=full&apikey=JG3NSS22E1GK9BB5'
 
     @apple = response.body
     @parsed_apple = JSON.parse @apple
-     @todays_close = @parsed_apple["Time Series (Daily)"]["2017-08-02"]["4. close"]
+    @todays_close = @parsed_apple["Time Series (Daily)"]["2017-08-02"]["4. close"]
 
     render 'home'
   end
