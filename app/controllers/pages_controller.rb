@@ -12,6 +12,7 @@ class PagesController < ApplicationController
     @parsed_apple = JSON.parse @apple
     @todays_close = @parsed_apple["Time Series (Daily)"]["2017-08-02"]["4. close"]
 
+
     render 'home'
   end
 end
