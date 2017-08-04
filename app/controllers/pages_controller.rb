@@ -1,16 +1,25 @@
 class PagesController < ApplicationController
   def home
-    conn = Faraday.new(:url => 'https://www.alphavantage.co') do |faraday|
-      faraday.request  :url_encoded             # form-encode POST params
-      faraday.response :logger                  # log requests to STDOUT
-      faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+
+    @stocks = Stock.all
+
+    @closing_prices_arr = []
+
+      
+
+      conn = Faraday.new(:url => 'https://www.alphavantage.co') do |faraday|
+        faraday.request  :url_encoded             # form-encode POST params
+        faraday.response :logger                  # log requests to STDOUT
+        faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+      end
+
+    @stocks.each do |stock|
+      response = conn.get "/query?function=TIME_SERIES_DAILY&symbol=#{stock.symbol}&outputsize=compact&apikey=JG3NSS22E1GK9BB5"
+
+      @response = response.body
+      @parsed_response = JSON.parse @response
+      @closing_prices_arr << @parsed_response["Time Series (Daily)"]["2017-08-02"]["4. close"]
     end
-
-    response = conn.get '/query?function=TIME_SERIES_DAILY&symbol=AAPL&outputsize=full&apikey=JG3NSS22E1GK9BB5'
-
-    @apple = response.body
-    @parsed_apple = JSON.parse @apple
-    @todays_close = @parsed_apple["Time Series (Daily)"]["2017-08-02"]["4. close"]
 
 
     render 'home'

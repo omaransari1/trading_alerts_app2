@@ -1,2 +1,15 @@
-<h1>Pages#home</h1>
-<p>Today's closing price: $<%= @todays_close %></p>
+<h1>Russell 1000</h1>
+<table>
+  <tr>
+    <th>Symbol</th>
+    <th>Company</th>
+    <th>Closing Price</th>
+  </tr>
+  <%@closing_prices_arr.each do |price| %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td><%=price%></td>
+  </tr>
+  <%end%>
+</table>
