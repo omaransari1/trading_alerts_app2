@@ -5,7 +5,7 @@ class PagesController < ApplicationController
 
     @closing_prices_arr = []
 
-      
+         
 
       conn = Faraday.new(:url => 'https://www.alphavantage.co') do |faraday|
         faraday.request  :url_encoded             # form-encode POST params
@@ -14,7 +14,7 @@ class PagesController < ApplicationController
       end
 
     @stocks.each do |stock|
-      response = conn.get "/query?function=TIME_SERIES_DAILY&symbol=#{stock.symbol}&outputsize=compact&apikey=JG3NSS22E1GK9BB5"
+      response = conn.get "/query?function=TIME_SERIES_DAILY&symbol=#{stock.symbol}&outputsize=full&apikey=JG3NSS22E1GK9BB5"
 
       @response = response.body
       @parsed_response = JSON.parse @response
