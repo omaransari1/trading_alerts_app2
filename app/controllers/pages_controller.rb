@@ -13,16 +13,21 @@ class PagesController < ApplicationController
         faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
       end
 
-    # @stocks.each do |stock|  **replace MSFT with #{stock.symbol} for loop
-      response = conn.get "/api/v3/datasets/WIKI/MSFT.json?limit=50&apikey=hMsC5ogvjGQTiy5eYTsR"
+    response = conn.get "/api/v3/datasets/WIKI/AAPL.json?limit=50&apikey=hMsC5ogvjGQTiy5eYTsR"
 
-      @response = response.body
-      @parsed_response = JSON.parse @response
+    @response = response.body
+    @parsed_response = JSON.parse @response
 
-      @daily_close = @parsed_response["dataset"]["data"][0][4]
+    @daily_close = @parsed_response["dataset"]["data"][0][11]
 
-      # @closing_prices_arr << @parsed_response["Time Series (Daily)"]["2017-08-02"]["4. close"]
-    # end
+
+    #50 day moving average calculation
+    @fifty_day_sum = 0
+    for i in (0..49)
+      @fifty_day_sum += @parsed_response["dataset"]["data"][i][11].to_f
+    end
+    @fifty_day_MA = @fifty_day_sum / 50
+
 
 
     render 'home'
