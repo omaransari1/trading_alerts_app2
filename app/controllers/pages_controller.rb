@@ -14,7 +14,7 @@ class PagesController < ApplicationController
       end
 
     @stocks.each do |stock|
-      response = conn.get "/query?function=TIME_SERIES_DAILY&symbol=#{stock.symbol}&outputsize=full&apikey=JG3NSS22E1GK9BB5"
+      response = conn.get "/query?function=TIME_SERIES_DAILY&symbol=#{stock.symbol}&outputsize=full&apikey=YMLLXVLX6UQ6SBEM"
 
       @response = response.body
       @parsed_response = JSON.parse @response
