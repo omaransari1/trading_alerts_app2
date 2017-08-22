@@ -1,15 +1,18 @@
-<h1>Russell 1000</h1>
+<!-- <h1>Russell 1000</h1>
 <table>
   <tr>
     <th>Symbol</th>
     <th>Company</th>
     <th>Closing Price</th>
   </tr>
-  <%@closing_prices_arr.each do |price| %>
+  <!%@closing_prices_arr.each do |price| %>
   <tr>
     <td></td>
     <td></td>
-    <td><%=price%></td>
+    <td><!%=price%></td>
   </tr>
-  <%end%>
-</table>
+  <!%end%>
+</table> -->
+
+<p>Daily close: $<%= @daily_close %></p>
+<p>50 day Moving Average: $<%=@fifty_day_MA%></p>
